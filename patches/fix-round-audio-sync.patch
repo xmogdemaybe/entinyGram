@@ -1,9 +1,0 @@
---- a/TMessagesProj/src/main/java/org/telegram/ui/Components/InstantCameraView.java
-+++ b/TMessagesProj/src/main/java/org/telegram/ui/Components/InstantCameraView.java
-@@ -2420,5 +2420,7 @@
-                                 if (!running) {
--                                    if (audioBufferInfo.offset[lastWroteBuffer] >= videoLast - desyncTime) {
-+                                    long maxAudioPts = currentTimestamp != 0 ? (currentTimestamp / 1000) : (videoLast - desyncTime);
-+                                    long currentAudioPts = (audioStartTime != -1 && currentTimestamp != 0) ? (audioBufferInfo.offset[lastWroteBuffer] - audioStartTime) : audioBufferInfo.offset[lastWroteBuffer];
-+                                    if (currentAudioPts >= maxAudioPts) {
-                                         if (BuildVars.LOGS_ENABLED) {
