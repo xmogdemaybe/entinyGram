@@ -94,7 +94,13 @@ jobs:
 
       - name: Override Camera2Session
         run: cp patches/Camera2Session.java worktree/TMessagesProj/src/main/java/org/telegram/messenger/camera/Camera2Session.java
-        
+
+      - name: Write google-services.json
+        run: |
+          DUMMY='{"project_info":{"project_number":"0","project_id":"entiny"},"client":[{"client_info":{"mobilesdk_app_id":"1:0:android:0","android_client_info":{"package_name":"org.telegram.messenger"}},"api_key":[{"current_key":"dummy"}]}]}'
+          printf '%s' "$DUMMY" > worktree/TMessagesProj/google-services.json
+          printf '%s' "$DUMMY" > worktree/TMessagesProj_App/google-services.json
+          
       - name: Compute build info
         id: info
         env:
