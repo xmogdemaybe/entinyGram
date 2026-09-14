@@ -1379,4 +1379,5 @@
     <string name="InuPreviewMessage">Preview</string>
 
     <string name="InuMinimize">Minimize</string>
+    <string name="InuRoundCamera60Fps">60 FPS in video messages</string>
 </resources>
