@@ -1,20 +1,9 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: xmogdemaybe <xmogdemaybe@users.noreply.github.com>
-Date: Mon, 14 Sep 2026 21:30:00 +0300
-Subject: Fix round video audio sync and freeze at 60 FPS
-
----
- .../ui/Components/InstantCameraView.java      | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/TMessagesProj/src/main/java/org/telegram/ui/Components/InstantCameraView.java b/TMessagesProj/src/main/java/org/telegram/ui/Components/InstantCameraView.java
-index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/Components/InstantCameraView.java
 +++ b/TMessagesProj/src/main/java/org/telegram/ui/Components/InstantCameraView.java
-@@ -2420,7 +2420,10 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
-                             if (!running) {
--                                if (audioBufferInfo.offset[i] >= videoLast - desyncTime) {
-+                                long maxAudioPts = currentTimestamp != 0 ? (currentTimestamp / 1000) : (videoLast - desyncTime);
-+                                long currentAudioPts = (audioStartTime != -1 && currentTimestamp != 0) ? (audioBufferInfo.offset[i] - audioStartTime) : audioBufferInfo.offset[i];
-+                                if (currentAudioPts >= maxAudioPts) {
-                                     if (BuildVars.LOGS_ENABLED) {
+@@ -2420,5 +2420,7 @@
+                                 if (!running) {
+-                                    if (audioBufferInfo.offset[lastWroteBuffer] >= videoLast - desyncTime) {
++                                    long maxAudioPts = currentTimestamp != 0 ? (currentTimestamp / 1000) : (videoLast - desyncTime);
++                                    long currentAudioPts = (audioStartTime != -1 && currentTimestamp != 0) ? (audioBufferInfo.offset[lastWroteBuffer] - audioStartTime) : audioBufferInfo.offset[lastWroteBuffer];
++                                    if (currentAudioPts >= maxAudioPts) {
+                                         if (BuildVars.LOGS_ENABLED) {
