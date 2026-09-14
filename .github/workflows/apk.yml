@@ -97,7 +97,7 @@ jobs:
 
       - name: Write google-services.json
         run: |
-          DUMMY='{"project_info":{"project_number":"0","project_id":"entiny"},"client":[{"client_info":{"mobilesdk_app_id":"1:0:android:0","android_client_info":{"package_name":"org.telegram.messenger"}},"api_key":[{"current_key":"dummy"}]}]}'
+          DUMMY='{"project_info":{"project_number":"0","project_id":"entiny"},"client":[{"client_info":{"mobilesdk_app_id":"1:0:android:0","android_client_info":{"package_name":"ua.entaytion.entinygram"}},"api_key":[{"current_key":"dummy"}]},{"client_info":{"mobilesdk_app_id":"1:0:android:1","android_client_info":{"package_name":"ua.entaytion.entinygram.beta"}},"api_key":[{"current_key":"dummy"}]}]}'
           printf '%s' "$DUMMY" > worktree/TMessagesProj/google-services.json
           printf '%s' "$DUMMY" > worktree/TMessagesProj_App/google-services.json
           
