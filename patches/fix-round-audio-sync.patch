@@ -1,7 +1,0 @@
---- a/TMessagesProj/src/main/java/org/telegram/ui/Components/InstantCameraView.java
-+++ b/TMessagesProj/src/main/java/org/telegram/ui/Components/InstantCameraView.java
-@@ -2440,3 +2440,3 @@
-                             long totalTime = input.offset[a] - audioStartTime;
--                            if (!running && (input.offset[a] >= videoLast - desyncTime || totalTime >= 60_000000)) {
-+                            if (!running && ((currentTimestamp != 0 ? totalTime >= currentTimestamp / 1000 : input.offset[a] >= videoLast - desyncTime) || totalTime >= 60_000000)) {
-                                 if (BuildVars.LOGS_ENABLED) {
