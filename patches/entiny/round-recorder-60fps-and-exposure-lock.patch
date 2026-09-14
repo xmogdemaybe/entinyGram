@@ -5,8 +5,8 @@ Subject: Add 60 FPS round video messages and round recorder exposure lock
 
 ---
  .../messenger/camera/Camera2Session.java      | 26 +++++++++-
- .../ui/Components/InstantCameraView.java      | 48 ++++++++++++++-----
- 2 files changed, 59 insertions(+), 15 deletions(-)
+ .../ui/Components/InstantCameraView.java      | 50 ++++++++++++++-----
+ 2 files changed, 60 insertions(+), 16 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/messenger/camera/Camera2Session.java b/TMessagesProj/src/main/java/org/telegram/messenger/camera/Camera2Session.java
 index 0000000..0000000 100644
@@ -143,6 +143,12 @@ index 0000000..0000000 100644
                      }
                      if (buffer.results >= 0 || buffer.last) {
                          if (!running && buffer.results < AudioBufferInfo.MAX_SAMPLES) {
+@@ -2494,4 +2509,4 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
+                         if (a < input.results) {
+                             long totalTime = input.offset[a] - audioStartTime;
+-                            if (!running && (input.offset[a] >= videoLast - desyncTime || totalTime >= 60_000000)) {
++                            if (!running && ((currentTimestamp != 0 ? totalTime >= currentTimestamp / 1000 : input.offset[a] >= videoLast - desyncTime) || totalTime >= 60_000000)) {
+                                 if (BuildVars.LOGS_ENABLED) {
 @@ -2613,7 +2628,12 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
                  }
                  lastTimestamp = timestampNanos;
