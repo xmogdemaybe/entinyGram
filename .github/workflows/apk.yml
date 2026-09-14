@@ -93,7 +93,7 @@ jobs:
         run: bun run setup -- --no-stgit
 
       - name: Override Camera2Session
-        run: cp patches/bugfix/Camera2Session.java worktree/TMessagesProj/src/main/java/org/telegram/messenger/camera/Camera2Session.java
+        run: cp patches/Camera2Session.java worktree/TMessagesProj/src/main/java/org/telegram/messenger/camera/Camera2Session.java
 
       - name: Write google-services.json
         env:
