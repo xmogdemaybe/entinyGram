@@ -94,18 +94,7 @@ jobs:
 
       - name: Override Camera2Session
         run: cp patches/Camera2Session.java worktree/TMessagesProj/src/main/java/org/telegram/messenger/camera/Camera2Session.java
-
-      - name: Write google-services.json
-        env:
-          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
-        run: |
-          if [ -z "$GOOGLE_SERVICES_JSON" ]; then
-            echo "::error::GOOGLE_SERVICES_JSON secret missing"
-            exit 1
-          fi
-          printf '%s' "$GOOGLE_SERVICES_JSON" > worktree/TMessagesProj/google-services.json
-          printf '%s' "$GOOGLE_SERVICES_JSON" > worktree/TMessagesProj_App/google-services.json
-
+        
       - name: Compute build info
         id: info
         env:
